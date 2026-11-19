@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ee">
+  <title>The Record Room — Curious feats, freshly shuffled</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172522;
+      --muted: #65736d;
+      --paper: #f6f4ee;
+      --card: #fffefa;
+      --line: #e8e6dc;
+      --green: #214f40;
+      --lime: #d3ec8b;
+      --orange: #e97849;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .shell { max-width: 1160px; margin: auto; padding: 0 30px 64px; }
+    header { height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 760; letter-spacing: -.3px; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: var(--lime); background: var(--green); font-size: 19px; }
+    .header-note { color: var(--muted); font-size: 13px; }
+    .hero { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 30px; padding: 62px 0 35px; }
+    .eyebrow { margin: 0 0 14px; color: #66836f; font-size: 11px; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase; }
+    h1 { max-width: 610px; margin: 0; font-size: clamp(40px, 6vw, 66px); line-height: .99; letter-spacing: -3.5px; }
+    .hero-copy { max-width: 480px; margin: 19px 0 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .random-button { display: flex; align-items: center; gap: 10px; padding: 14px 19px; border: 0; border-radius: 13px; background: var(--lime); color: var(--ink); font-weight: 760; box-shadow: 0 4px 14px #26351d12; transition: transform .18s, box-shadow .18s; }
+    .random-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #26351d1c; }
+    .random-button span { font-size: 19px; }
+    .notice { display: flex; gap: 10px; align-items: center; margin: 0 0 27px; padding: 12px 15px; border: 1px solid #e3e9d1; border-radius: 11px; background: #f0f3e8; color: #50614c; font-size: 12px; line-height: 1.45; }
+    .notice strong { color: #314b38; }
+    .toolbar { display: flex; align-items: center; gap: 11px; margin-bottom: 24px; }
+    .search-wrap { position: relative; flex: 1; }
+    .search-icon { position: absolute; top: 50%; left: 15px; color: #78827b; transform: translateY(-50%); pointer-events: none; }
+    .search { width: 100%; height: 48px; padding: 0 14px 0 43px; border: 1px solid var(--line); border-radius: 12px; outline: none; background: var(--card); color: var(--ink); }
+    .search:focus, .category:focus { border-color: #839a77; box-shadow: 0 0 0 3px #dce8ca; }
+    .category { height: 48px; min-width: 158px; padding: 0 35px 0 14px; border: 1px solid var(--line); border-radius: 12px; outline: none; background: var(--card); color: var(--ink); }
+    .results-line { display: flex; align-items: center; justify-content: space-between; margin: 0 1px 15px; color: var(--muted); font-size: 12px; }
+    .results-line strong { color: var(--ink); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+    .record { position: relative; min-height: 230px; padding: 19px 19px 17px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--card); transition: transform .18s, border-color .18s, box-shadow .18s; cursor: pointer; }
+    .record:hover { transform: translateY(-3px); border-color: #d4d8c8; box-shadow: 0 12px 28px #26351d0c; }
+    .record-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .record-icon { width: 45px; height: 45px; display: grid; place-items: center; border-radius: 14px; background: #f1f2e8; font-size: 23px; }
+    .category-tag { padding: 6px 9px; border-radius: 99px; background: #f3f1e9; color: #69746b; font-size: 10px; font-weight: 740; }
+    .record h2 { margin: 0 0 9px; font-size: 17px; line-height: 1.3; letter-spacing: -.4px; }
+    .record p { min-height: 38px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .record-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 17px; padding-top: 13px; border-top: 1px solid #f0eee6; color: #7a837c; font-size: 10px; }
+    .record-footer strong { color: #3d5143; font-size: 11px; font-weight: 700; }
+    .empty, .error { grid-column: 1 / -1; padding: 55px 20px; border: 1px dashed #d9dccf; border-radius: 15px; color: var(--muted); text-align: center; }
+    .load-more { display: block; min-width: 145px; margin: 24px auto 0; padding: 12px 20px; border: 1px solid #dcded4; border-radius: 11px; background: transparent; color: var(--ink); font-weight: 700; }
+    .load-more:hover { background: #eeede5; }
+    .load-more[hidden] { display: none; }
+    .modal-backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: 20px; background: #13231dcc; z-index: 2; }
+    .modal-backdrop[hidden] { display: none; }
+    .modal { position: relative; width: min(100%, 480px); padding: 30px; border-radius: 20px; background: var(--card); box-shadow: 0 24px 80px #07130d55; }
+    .modal-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f1f0e9; color: var(--ink); font-size: 19px; }
+    .modal-icon { display: grid; width: 58px; height: 58px; margin-bottom: 20px; place-items: center; border-radius: 18px; background: #f1f2e8; font-size: 29px; }
+    .modal h2 { margin: 0 0 12px; font-size: 27px; line-height: 1.15; letter-spacing: -1px; }
+    .modal-description { color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .modal-value { margin: 20px 0 0; padding: 13px 15px; border-radius: 11px; background: #f2f3e9; color: #405143; font-size: 13px; font-weight: 700; }
+    .toast { position: fixed; right: 20px; bottom: 20px; padding: 13px 16px; border-radius: 11px; background: var(--ink); color: white; font-size: 13px; box-shadow: 0 8px 24px #0002; }
+    .toast[hidden] { display: none; }
+    @media (max-width: 780px) {
+      .hero { grid-template-columns: 1fr; align-items: start; padding-top: 45px; }
+      .random-button { justify-self: start; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 540px) {
+      .shell { padding: 0 18px 45px; }
+      header { height: 68px; }
+      .header-note { font-size: 11px; }
+      .hero { gap: 21px; padding-top: 38px; }
+      h1 { letter-spacing: -2px; }
+      .toolbar { align-items: stretch; flex-direction: column; }
+      .category { width: 100%; }
+      .grid { grid-template-columns: 1fr; }
+      .record { min-height: 210px; }
+      .notice { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="brand-mark">✳</div><span>THE RECORD ROOM</span></div>
+      <div class="header-note">A little wonder, every day</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">The curious collection</p>
+          <h1>Small wonders.<br>Big records.</h1>
+          <p class="hero-copy">Browse delightful feats, find something unexpected, and let curiosity lead the way.</p>
+        </div>
+        <button id="random-button" class="random-button" type="button"><span>⤨</span> Surprise me</button>
+      </section>
+
+      <div class="notice"><span aria-hidden="true">ⓘ</span><span><strong>Demo collection.</strong> These original sample entries are for demonstration only; they are not official or Guinness World Records.</span></div>
+
+      <section aria-label="Browse records">
+        <div class="toolbar">
+          <label class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search" class="search" type="search" placeholder="Search records, topics, or words..." autocomplete="off" aria-label="Search records">
+          </label>
+          <select id="category" class="category" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+        <div class="results-line"><span id="result-count" aria-live="polite">Loading records...</span><span>Made for the curious ✳</span></div>
+        <div id="records" class="grid" aria-live="polite"></div>
+        <button id="load-more" class="load-more" type="button" hidden>Load more</button>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="modal-close" class="modal-close" type="button" aria-label="Close">×</button>
+      <div id="modal-icon" class="modal-icon" aria-hidden="true"></div>
+      <p id="modal-category" class="eyebrow"></p>
+      <h2 id="modal-title"></h2>
+      <p id="modal-description" class="modal-description"></p>
+      <div id="modal-value" class="modal-value"></div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script>
+    const pageSize = 9;
+    const recordsElement = document.querySelector("#records");
+    const searchInput = document.querySelector("#search");
+    const categorySelect = document.querySelector("#category");
+    const loadMoreButton = document.querySelector("#load-more");
+    const resultCount = document.querySelector("#result-count");
+    const modalBackdrop = document.querySelector("#modal-backdrop");
+    let offset = 0;
+    let total = 0;
+    let searchTimer;
+
+    function currentFilters() {
+      return { q: searchInput.value.trim(), category: categorySelect.value };
+    }
+
+    function queryString(filters, extra = {}) {
+      const params = new URLSearchParams({ ...filters, ...extra });
+      return params.toString();
+    }
+
+    function showRecord(record) {
+      document.querySelector("#modal-icon").textContent = record.icon;
+      document.querySelector("#modal-category").textContent = record.category + " · " + record.holder;
+      document.querySelector("#modal-title").textContent = record.title;
+      document.querySelector("#modal-description").textContent = record.description;
+      document.querySelector("#modal-value").textContent = record.value;
+      modalBackdrop.hidden = false;
+      document.querySelector("#modal-close").focus();
+    }
+
+    function renderCard(record) {
+      const card = document.createElement("article");
+      card.className = "record";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", "View " + record.title);
+
+      const top = document.createElement("div");
+      top.className = "record-top";
+      const icon = document.createElement("div");
+      icon.className = "record-icon";
+      icon.textContent = record.icon;
+      const category = document.createElement("span");
+      category.className = "category-tag";
+      category.textContent = record.category;
+      top.append(icon, category);
+
+      const title = document.createElement("h2");
+      title.textContent = record.title;
+      const description = document.createElement("p");
+      description.textContent = record.description;
+      const footer = document.createElement("div");
+      footer.className = "record-footer";
+      const holder = document.createElement("strong");
+      holder.textContent = record.holder;
+      const value = document.createElement("span");
+      value.textContent = record.value;
+      footer.append(holder, value);
+
+      card.append(top, title, description, footer);
+      card.addEventListener("click", () => showRecord(record));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          showRecord(record);
+        }
+      });
+      return card;
+    }
+
+    async function loadRecords(append = false) {
+      if (!append) {
+        offset = 0;
+        recordsElement.replaceChildren();
+        resultCount.textContent = "Finding something wonderful...";
+      }
+      try {
+        const response = await fetch("/api/records?" + queryString(currentFilters(), { offset, limit: pageSize }));
+        if (!response.ok) throw new Error("Could not load records");
+        const data = await response.json();
+        total = data.total;
+        data.items.forEach((record) => recordsElement.append(renderCard(record)));
+        offset += data.items.length;
+        resultCount.innerHTML = "<strong>" + total + "</strong> " + (total === 1 ? "curious find" : "curious finds");
+        loadMoreButton.hidden = offset >= total;
+        if (total === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "No records found. Try a different search or category.";
+          recordsElement.append(empty);
+        }
+      } catch {
+        recordsElement.replaceChildren();
+        const error = document.createElement("div");
+        error.className = "error";
+        error.textContent = "We couldn't load the records. Please try again.";
+        recordsElement.append(error);
+        resultCount.textContent = "Something went wrong";
+      }
+    }
+
+    async function loadCategories() {
+      const response = await fetch("/api/categories");
+      if (!response.ok) throw new Error("Could not load categories");
+      const categories = await response.json();
+      categories.forEach((name) => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        categorySelect.append(option);
+      });
+    }
+
+    async function surpriseMe() {
+      const button = document.querySelector("#random-button");
+      button.disabled = true;
+      try {
+        const response = await fetch("/api/random?" + queryString(currentFilters()));
+        if (response.status === 404) {
+          document.querySelector("#toast").textContent = "No records match those filters yet.";
+          document.querySelector("#toast").hidden = false;
+          setTimeout(() => { document.querySelector("#toast").hidden = true; }, 2500);
+          return;
+        }
+        if (!response.ok) throw new Error("Could not choose a random record");
+        showRecord(await response.json());
+      } catch {
+        document.querySelector("#toast").textContent = "Couldn't pick a record. Please try again.";
+        document.querySelector("#toast").hidden = false;
+        setTimeout(() => { document.querySelector("#toast").hidden = true; }, 2500);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => loadRecords(), 220);
+    });
+    categorySelect.addEventListener("change", () => loadRecords());
+    loadMoreButton.addEventListener("click", () => loadRecords(true));
+    document.querySelector("#random-button").addEventListener("click", surpriseMe);
+    document.querySelector("#modal-close").addEventListener("click", () => { modalBackdrop.hidden = true; });
+    modalBackdrop.addEventListener("click", (event) => {
+      if (event.target === modalBackdrop) modalBackdrop.hidden = true;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") modalBackdrop.hidden = true;
+    });
+
+    loadCategories().then(loadRecords).catch(() => {
+      resultCount.textContent = "Couldn't load the record collection.";
+    });
+  </script>
+</body>
+</html>

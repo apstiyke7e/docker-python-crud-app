@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "The longest paper-airplane flight",
+    "category": "Creative",
+    "holder": "Demo entry",
+    "value": "A flight across a sunny school gym",
+    "description": "A paper glider coasts from one end of a gym to the other, powered by careful folds and a well-timed launch.",
+    "icon": "✈"
+  },
+  {
+    "id": 2,
+    "title": "The tallest tower of teacups",
+    "category": "Building",
+    "holder": "Demo entry",
+    "value": "A teetering stack reaching a shelf",
+    "description": "A patient builder balances a colorful collection of lightweight cups into a surprisingly tall tower.",
+    "icon": "☕"
+  },
+  {
+    "id": 3,
+    "title": "The most socks matched in one minute",
+    "category": "Speed",
+    "holder": "Demo entry",
+    "value": "A whole laundry basket sorted",
+    "description": "Quick eyes and quicker hands turn a mixed-up basket into neat pairs before the timer runs out.",
+    "icon": "🧦"
+  },
+  {
+    "id": 4,
+    "title": "The widest sidewalk chalk rainbow",
+    "category": "Creative",
+    "holder": "Demo entry",
+    "value": "A bright arc across a quiet courtyard",
+    "description": "A team of artists fills a broad sweep of pavement with bands of cheerful chalk color.",
+    "icon": "🌈"
+  },
+  {
+    "id": 5,
+    "title": "The most paper cups stacked in a pyramid",
+    "category": "Building",
+    "holder": "Demo entry",
+    "value": "A pyramid taller than its maker",
+    "description": "One cup at a time, a careful stack grows into a sturdy geometric showpiece.",
+    "icon": "🔺"
+  },
+  {
+    "id": 6,
+    "title": "The fastest spoon to table relay",
+    "category": "Speed",
+    "holder": "Demo entry",
+    "value": "A speedy lap around the kitchen",
+    "description": "A spoon makes a careful trip across the room in a playful relay against the clock.",
+    "icon": "🥄"
+  },
+  {
+    "id": 7,
+    "title": "The most tiny drawings on a sticky note",
+    "category": "Creative",
+    "holder": "Demo entry",
+    "value": "A miniature gallery in one square",
+    "description": "A fine pen transforms a small sticky note into a dense collection of little doodles.",
+    "icon": "✏"
+  },
+  {
+    "id": 8,
+    "title": "The biggest pillow fort in the living room",
+    "category": "Building",
+    "holder": "Demo entry",
+    "value": "Room for a whole reading club",
+    "description": "Blankets, cushions, and sofa pillows become a cozy, imaginative indoor hideaway.",
+    "icon": "⛺"
+  },
+  {
+    "id": 9,
+    "title": "The most reusable bottles labeled in one minute",
+    "category": "Speed",
+    "holder": "Demo entry",
+    "value": "A stack ready for the next adventure",
+    "description": "A quick organizer adds colorful name labels to a row of reusable water bottles.",
+    "icon": "💧"
+  },
+  {
+    "id": 10,
+    "title": "The longest domino trail in a hallway",
+    "category": "Building",
+    "holder": "Demo entry",
+    "value": "A winding path from door to door",
+    "description": "A careful line of dominoes snakes around corners, waiting for one gentle nudge.",
+    "icon": "🁣"
+  },
+  {
+    "id": 11,
+    "title": "The most colorful leaves collected on a walk",
+    "category": "Nature",
+    "holder": "Demo entry",
+    "value": "A pocket-sized autumn palette",
+    "description": "A nature walk turns up leaves in a delightful mix of shapes, shades, and textures.",
+    "icon": "🍂"
+  },
+  {
+    "id": 12,
+    "title": "The tallest stack of building blocks",
+    "category": "Building",
+    "holder": "Demo entry",
+    "value": "A tower that nearly touches the ceiling",
+    "description": "A steady builder balances bright blocks into a towering creation, one careful layer at a time.",
+    "icon": "🧱"
+  }
+]
